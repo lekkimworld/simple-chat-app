@@ -63,7 +63,11 @@ function updateUserList(socketIds) {
   });
 }
 
-const socket = io.connect("localhost:5000");
+// compute url
+let url = `${window.location.protocol}//${window.location.hostname}`;
+if (window.location.port !== "") url += `:${window.location.port}`;
+console.log(`Connecting to websocket at: ${url}`);
+const socket = io.connect(url);
 
 socket.on("update-user-list", ({ users }) => {
   updateUserList(users);
